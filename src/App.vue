@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="contrainer">
      <img alt="Vue logo" src="./assets/logo.png">
-     <HelloWorld msg="Welcome to Your Vue.js App"/>
+     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
      <toDoList/>
   </div>
 </template>
@@ -13,7 +13,7 @@ import ToDoList from './components/ToDoList';
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    // HelloWorld,
     ToDoList
   }
 }
