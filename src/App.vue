@@ -2,19 +2,19 @@
   <div id="app" class="contrainer">
      <img alt="Vue logo" src="./assets/logo.png">
      <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <!--<Home/> -->
-    <Home/>
+     <toDoList/>
   </div>
 </template>
 
 <script>
 // eslint-disable-next-line no-unused-vars
 import HelloWorld from './components/HelloWorld.vue';
-
+import ToDoList from './components/ToDoList';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    ToDoList
   }
 }
 </script>
