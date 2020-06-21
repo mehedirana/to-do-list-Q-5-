@@ -1,43 +1,33 @@
 <template>
-    <div>
-        <h1>hello i am from home</h1>
-        <h1>{{data}}</h1>
-        <button v-on:mouseover="handle('welcome')">click me</button>
-        <table>
-           <tr>
-             <td>id </td>
-             <td>name </td>
-             <td>email </td>
-           </tr>
+  <div class="homes">
+     <h1>hi i m home component</h1>
+     <Screen/>
+     <Screen2/>
+  </div>
 
-           <tr v-for="user in arr" :key="user.id">
-             <td>{{user.id}}</td>
-             <td>{{user.name}}</td>
-             <td>{{user.email}} </td>
-           </tr>
-        </table>
- 
-   </div>
 </template>
- <script>
+
+<script>
+import Screen from './Screen';
+import Screen2 from './Screen2'
 export default {
-  name: 'Home',
-  props:{
-      data: String 
-  },methods: {
-      handle(data){
-          console.log("called")
-          alert(data)
-      }
-  },data(){
-      return {
-          arr:[
-              {id:1, name:"mehedi", email:"mehedi@gmai.com"},
-              {id:2, name:"rajib", email:"rajib@gmai.com"},
-              {id:3, name:"imran", email:"imran@gmai.com"},
-              {id:4, name:"mashuk", email:"mashuk@gmai.com"},
-          ]
-      }
-  }
-};
+ name: "Home",
+ components:{
+     // eslint-disable-next-line vue/no-unused-components
+     Screen,
+     // eslint-disable-next-line vue/no-unused-components
+     Screen2
+ }
+}
 </script>
+
+<style scoped>
+div{
+    background-color: cadetblue;
+  height: 300px;
+}
+h1{
+   text-size-adjust: 20;
+}
+    
+</style>
