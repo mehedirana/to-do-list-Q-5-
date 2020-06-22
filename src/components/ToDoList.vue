@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" class="todo-input" v-model="newTodo" @keyup.enter="addTodo" />
-    <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
+    <div v-for="(todo, index) in todosFiltered" :key="todo.id" class="todo-item">
 
       <div class="todo-item-left">
         <input type="checkbox" v-model="todo.completed">
@@ -21,9 +21,26 @@
 
       <div class="remove-item" @click="removeTodo(index)">&times;</div>
     </div>
+    
+
     <div class="extra-container">
-      <div><label><input type="checkbox">check all</label></div>
+      <div><label><input type="checkbox" :checked="!anyRemaining" @change="checkAllTodos">check all</label></div>
       <div>{{ remaining }} items left</div>
+    </div>
+
+    <div class="extra-container">
+      <div>
+        <button :class="{ active: filter == 'all'}" @click="filter = 'all'">All</button>
+        <button :class="{ active: filter =='active'}" @click="filter = 'active'">Active</button>
+        <button :class="{ active: filter == 'completed'}" @click="filter = 'completed'">Completed</button>
+      </div>
+
+      <div>
+        <transition name="fade">
+          <button v-if="showClearCompletedButton" @click="clearCompleted">clear completed</button>
+        </transition>
+      </div>
+
     </div>
   </div>
 </template>
@@ -36,6 +53,7 @@ export default {
             newTodo: '',
             idFortodo: 3,
             beforeEditCache: '',
+            filter: 'all',
             todos: [
                 {
                     'id': 1,
@@ -52,6 +70,38 @@ export default {
             ]
         }
     },
+    computed: {
+      remaining(){
+          return this.todos.filter(todo => !todo.completed).length
+      },
+
+      anyRemaining(){
+        return this.remaining != 0
+      },
+
+      todosFiltered(){
+        if(this.filter == 'all'){
+          //alert("from all")
+          return this.todos
+        }
+        else if(this.filter == 'active'){
+         // alert("from active")
+          return this.todos.filter(todo => !todo.completed)
+        }
+        else if(this.filter == 'completed'){
+         // alert("from completed")
+          return this.todos.filter(todo => todo.completed)
+        }
+        
+        //alert("before return todos")
+        return this.todos
+      },
+
+      showClearCompletedButton(){
+        return this.todos.filter(todo => todo.completed).length > 0
+      }
+      
+    },
   directives: {
   focus: {
     // directive definition
@@ -67,14 +117,15 @@ export default {
             this.todos.push({
                id: this.idFortodo,
                title: this.newTodo,
-               completed: false, 
+               completed: false,
+               editing: false, 
             })
             this.newTodo= '',
             this.idFortodo++
         },
 
         removeTodo(index){
-            alert("removing")
+           // alert("removing")
         this.todos.splice(index,1)
         },
 
@@ -94,6 +145,12 @@ export default {
             todo.title = this.beforeEditCache
             todo.editing= false
 
+        },
+        checkAllTodos(){
+          this.todos.forEach((todo) => todo.completed = event.target.checked)
+        },
+        clearCompleted(){
+          this.todos = this.todos.filter(todo => !todo.completed)
         }
     }
 }
@@ -103,7 +160,7 @@ export default {
 .todo-input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 30px;
   font-size: 20px;
   /* margin-top: 200px; */
   &:focus {
@@ -159,4 +216,26 @@ export default {
   margin-bottom: 14px;
   border-top: 1px solid black;
 }
+button{
+  font-size: 15px;
+  background-color: white;
+  font-weight: bold;
+  appearance: none;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+
+  &:hover{
+    background: rgba(47, 241, 255, 0.897);
+  }
+  &:focus{
+    outline: none;
+  }
+}
+ .active{
+    background: rgba(47, 241, 255, 0.897);
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s;
+  }
 </style>

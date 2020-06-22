@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="contrainer">
+     <h1>ToDo app</h1>
      <img alt="Vue logo" src="./assets/logo.png">
      <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
      <toDoList/>
@@ -28,7 +29,13 @@ export default {
   max-width: 500px;
    margin: 0 auto;
 }
-
+img{
+  padding: 10px;
+  margin-left: 140px;
+}
+h1{
+  margin-left: 155px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
