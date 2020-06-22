@@ -56,6 +56,7 @@ export default {
     methods:{
         addTodo(){
             if(this.newTodo.trim().length==0) return
+
             this.todos.push({
                id: this.idFortodo,
                title: this.newTodo,
@@ -64,17 +65,23 @@ export default {
             this.newTodo= '',
             this.idFortodo++
         },
+
         removeTodo(index){
             alert("removing")
         this.todos.splice(index,1)
         },
+
         editTodo(todo){
             this.beforeEditCache = todo.title
             todo.editing = true
         },
+
         editDone(todo){
+          if(todo.title.trim().length==0) return
+
           todo.editing = false
         },
+
         cancelEdit(todo){
             todo.title = this.beforeEditCache
             todo.editing= false
