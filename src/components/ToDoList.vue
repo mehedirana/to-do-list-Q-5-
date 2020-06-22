@@ -21,6 +21,10 @@
 
       <div class="remove-item" @click="removeTodo(index)">&times;</div>
     </div>
+    <div class="extra-container">
+      <div><label><input type="checkbox">check all</label></div>
+      <div>{{ remaining }} items left</div>
+    </div>
   </div>
 </template>
 
@@ -142,8 +146,17 @@ export default {
   }
 
 }
-  .completed{
+.completed{
        text-decoration: line-through;
        color: crimson;    
-  }
+}
+.extra-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  padding-top: 14px;
+  margin-bottom: 14px;
+  border-top: 1px solid black;
+}
 </style>
