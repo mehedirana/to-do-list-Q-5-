@@ -2,8 +2,11 @@
   <div>
     <input type="text" class="todo-input" v-model="newTodo" @keyup.enter="addTodo" />
     <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
+
       <div class="todo-item-left">
-        <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">{{todo.title}}</div>
+        <input type="checkbox" v-model="todo.completed">
+        <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label"
+         :class="{completed : todo.completed}">{{todo.title}}</div>
         <input
           v-else
           @blur="editDone(todo)"
@@ -77,8 +80,9 @@ export default {
         },
 
         editDone(todo){
-          if(todo.title.trim().length==0) return
-
+          if(todo.title.trim() ==''){
+            todo.title = this.beforeEditCache
+          }
           todo.editing = false
         },
 
@@ -136,5 +140,10 @@ export default {
   &:focus {
     outline: none;
   }
+
 }
+  .completed{
+       text-decoration: line-through;
+       color: crimson;    
+  }
 </style>
